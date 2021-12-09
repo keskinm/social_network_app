@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "4288963354",
+    "project_id": "keen-of-arts-d8d1d",
+    "storage_bucket": "keen-of-arts-d8d1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4288963354:android:4ae332065b3f350a77c2a3",
+        "android_client_info": {
+          "package_name": "com.social_network.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4288963354-r7qe8fvlhuje79dptl9q59621muo4sj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuUvPpKrm9MGtHftGauNdldEzUAKTj1fk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4288963354-r7qe8fvlhuje79dptl9q59621muo4sj4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
