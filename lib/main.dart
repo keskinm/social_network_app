@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter/widgets.dart';
-import 'package:social_network/ui/pages/splash/splash_page.dart';
+import 'package:social_network_front/ui/pages/splash/splash_page.dart';
 
 // !!!!!!!!!!!!!!!! DEV ONLY !!!!!!!!!!!!!!!!
 class MyHttpOverrides extends HttpOverrides {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:social_network/ui/pages/chatroom/chatroom_page.dart';
-import 'package:social_network/ui/widgets/flow_menu_component.dart';
-import 'package:social_network/ui/pages/profile/profile_page.dart';
-import 'package:social_network/ui/pages/search/search_page.dart';
+import 'package:social_network_front/ui/pages/chatroom/chatroom_page.dart';
+import 'package:social_network_front/ui/widgets/flow_menu_component.dart';
+import 'package:social_network_front/ui/pages/profile/profile_page.dart';
+import 'package:social_network_front/ui/pages/search/search_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);

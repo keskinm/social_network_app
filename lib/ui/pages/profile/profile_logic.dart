@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:social_network/services/api/dio.dart';
-import 'package:social_network/services/app_state.dart';
+import 'package:social_network_front/services/api/dio.dart';
+import 'package:social_network_front/services/app_state.dart';
 
 class UserSettings {
   // @todo separate User and UserSettings properties and handle

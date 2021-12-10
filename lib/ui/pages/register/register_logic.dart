@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:social_network/services/app_state.dart';
-import 'package:social_network/services/routing.dart';
-import 'package:social_network/ui/pages/main/main_page.dart';
-import 'package:social_network/ui/widgets/forms/validator.dart';
+import 'package:social_network_front/services/app_state.dart';
+import 'package:social_network_front/services/routing.dart';
+import 'package:social_network_front/ui/pages/main/main_page.dart';
+import 'package:social_network_front/ui/widgets/forms/validator.dart';
 
 
 class RegisterLogic {

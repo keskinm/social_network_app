@@ -1,7 +1,7 @@
 import '../app_state.dart';
 
 import 'package:dio/dio.dart';
-import 'package:social_network/services/api/dio.dart';
+import 'package:social_network_front/services/api/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 

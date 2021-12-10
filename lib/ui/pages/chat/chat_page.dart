@@ -1,6 +1,6 @@
-import 'package:social_network/services/app_state.dart';
-import 'package:social_network/services/database.dart';
-import 'package:social_network/widget/widget.dart';
+import 'package:social_network_front/services/app_state.dart';
+import 'package:social_network_front/services/database.dart';
+import 'package:social_network_front/widget/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:social_network/services/app_state.dart';
+import 'package:social_network_front/services/app_state.dart';
 
 Future<Response> dioHttpGet(
     {required String route, required bool token}) async {

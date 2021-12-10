@@ -1,9 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:social_network/services/routing.dart';
-import 'package:social_network/ui/pages/register/register_page.dart';
-import 'package:social_network/ui/pages/login/login_logic.dart';
-import 'package:social_network/ui/pages/login/login_style.dart';
+import 'package:social_network_front/services/routing.dart';
+import 'package:social_network_front/ui/pages/register/register_page.dart';
+import 'package:social_network_front/ui/pages/login/login_logic.dart';
+import 'package:social_network_front/ui/pages/login/login_style.dart';
 
 
 class LoginPage extends StatefulWidget {

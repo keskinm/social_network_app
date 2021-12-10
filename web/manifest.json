@@ -1,6 +1,6 @@
 {
-    "name": "social_network",
-    "short_name": "social_network",
+    "name": "social_network_front",
+    "short_name": "social_network_front",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
