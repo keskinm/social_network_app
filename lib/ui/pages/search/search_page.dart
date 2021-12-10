@@ -12,11 +12,11 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-
   DatabaseMethods databaseMethods = new DatabaseMethods();
   TextEditingController searchEditingController = new TextEditingController();
   late QuerySnapshot searchResultSnapshot;
 
+  String title = 'Recherche utilisateur';
   bool isLoading = false;
   bool haveUserSearched = false;
 

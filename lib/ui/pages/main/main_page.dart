@@ -20,29 +20,29 @@ class _MainPageState extends State<MainPage>
   late List<Map<String, dynamic>> menuItems;
   IconData lastIcon = Icons.new_releases;
   IconData lastTapped = Icons.person;
-  String title = 'Profil';
-  Widget actualPage = const ProfilePage();
+  String title = 'Acceuil';
+  Widget actualPage = ProfilePage();
 
   void buildMenu() {
     menuItems = [
       {
         'icon': Icons.person,
-        'action': () => _updateMenu(icon: Icons.person, page: const ProfilePage()),
+        'action': () => _updateMenu(icon: Icons.person, page: ProfilePage(), newTitle: 'profile'),
 
       },
       {
         'icon': Icons.search,
-        'action': () => _updateMenu(icon: Icons.search, page: Search())
+        'action': () => _updateMenu(icon: Icons.search, page: Search(), newTitle: 'recherche utilisateur')
       },
       {
         'icon': Icons.new_releases,
         'action': () =>
-            _updateMenu(icon: Icons.new_releases, page: ChatRoom()),
+            _updateMenu(icon: Icons.new_releases, page: ChatRoom(), newTitle: 'messagerie'),
       }
     ];
   }
 
-  void _updateMenu({required IconData icon, required page}) {
+  void _updateMenu({required IconData icon, required page, required String newTitle}) {
     if (menuAnimation.status != AnimationStatus.completed) {
       menuAnimation.forward();
       setState(() {
@@ -53,7 +53,8 @@ class _MainPageState extends State<MainPage>
       setState(() {
         if (actualPage != page) {
           actualPage = page;
-          title = page.title;
+          // title = page.title;
+          title = newTitle;
         }
         lastTapped = icon;
         menuItems.last['icon'] = icon;

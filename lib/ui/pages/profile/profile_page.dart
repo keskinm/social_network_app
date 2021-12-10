@@ -16,7 +16,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   String title = 'Profile';
 
   ProfileLogic logic = ProfileLogic();

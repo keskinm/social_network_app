@@ -18,8 +18,8 @@ class ChatRoom extends StatefulWidget {
 }
 
 class _ChatRoomState extends State<ChatRoom> {
-
   late Stream<QuerySnapshot> chatRooms;
+  String title = 'Messagerie';
 
   Widget chatRoomsList() {
     return StreamBuilder(
@@ -89,13 +89,14 @@ class _ChatRoomState extends State<ChatRoom> {
       ),
 
 
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.search),
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Search()));
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(Icons.search),
+      //   onPressed: () {
+      //     Navigator.push(
+      //         context, MaterialPageRoute(builder: (context) => Search()));
+      //   },
+      // ),
+
     );
   }
 }
