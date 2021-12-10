@@ -28,6 +28,7 @@ class _MainPageState extends State<MainPage>
       {
         'icon': Icons.person,
         'action': () => _updateMenu(icon: Icons.person, page: const ProfilePage()),
+
       },
       {
         'icon': Icons.search,
@@ -74,25 +75,6 @@ class _MainPageState extends State<MainPage>
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
-        // appBar: AppBar(
-        //   centerTitle: true,
-        //   title: Text(title),
-        //   automaticallyImplyLeading: false,
-        //   actions: [
-        //     IconButton(
-        //         padding: EdgeInsets.only(
-        //             right: MediaQuery.of(context).size.width / 25),
-        //         onPressed: () {},
-        //         icon: const Icon(Icons.search)),
-        //     IconButton(
-        //         padding: EdgeInsets.only(
-        //             right: MediaQuery.of(context).size.width / 25),
-        //         onPressed: () {
-        //           _scaffoldKey.currentState!.openEndDrawer();
-        //         },
-        //         icon: const Icon(Icons.settings))
-        //   ],
-        // ),
         endDrawer: Drawer(
           child: ListView(
             children: const [

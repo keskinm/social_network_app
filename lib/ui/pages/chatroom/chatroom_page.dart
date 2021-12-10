@@ -8,6 +8,7 @@ import 'package:social_network_front/helper/theme.dart';
 
 import 'package:social_network_front/services/app_state.dart';
 import 'package:social_network_front/ui/pages/chat/chat_page.dart';
+import 'package:social_network_front/ui/pages/login/login_page.dart';
 import 'package:social_network_front/ui/pages/search/search_page.dart';
 import 'package:flutter/material.dart';
 
@@ -68,18 +69,18 @@ class _ChatRoomState extends State<ChatRoom> {
         ),
         elevation: 0.0,
         centerTitle: false,
-        // actions: [
-        //   GestureDetector(
-        //     onTap: () {
-        //       appState.authMethods.signOut();
-        //       Navigator.pushReplacement(context,
-        //           MaterialPageRoute(builder: (context) => Authenticate()));
-        //     },
-        //     child: Container(
-        //         padding: EdgeInsets.symmetric(horizontal: 16),
-        //         child: Icon(Icons.exit_to_app)),
-        //   )
-        // ],
+        actions: [
+          GestureDetector(
+            onTap: () {
+              appState.authMethods.signOut();
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => LoginPage()));
+            },
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Icon(Icons.exit_to_app)),
+          )
+        ],
       ),
 
       // @todo have to make work this:
