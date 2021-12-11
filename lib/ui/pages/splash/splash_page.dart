@@ -1,8 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:social_network_front/services/app_state.dart';
-import 'package:social_network_front/ui/pages/splash/splash_logic.dart';
-import 'package:social_network_front/ui/pages/splash/splash_style.dart';
+import 'package:social_network_app/services/app_state.dart';
+import 'package:social_network_app/ui/pages/splash/splash_logic.dart';
+import 'package:social_network_app/ui/pages/splash/splash_style.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fs;
 import 'package:image_picker/image_picker.dart';
-import 'package:social_network_front/services/app_state.dart';
+import 'package:social_network_app/services/app_state.dart';
 
 
 class LoadFirbaseStorageImage extends StatefulWidget {

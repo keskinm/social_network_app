@@ -1,6 +1,6 @@
-import 'package:social_network_front/models/user_model.dart';
-import 'package:social_network_front/services/api/auth.dart';
-import 'package:social_network_front/services/device.dart' as device;
+import 'package:social_network_app/models/user_model.dart';
+import 'package:social_network_app/services/api/auth.dart';
+import 'package:social_network_app/services/device.dart' as device;
 import 'package:shared_preferences/shared_preferences.dart';
 
 

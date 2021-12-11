@@ -1,9 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:social_network_front/services/routing.dart';
-import 'package:social_network_front/ui/pages/login/login_page.dart';
-import 'package:social_network_front/ui/pages/register/register_logic.dart';
-import 'package:social_network_front/ui/pages/register/register_style.dart';
+import 'package:social_network_app/services/routing.dart';
+import 'package:social_network_app/ui/pages/login/login_page.dart';
+import 'package:social_network_app/ui/pages/register/register_logic.dart';
+import 'package:social_network_app/ui/pages/register/register_style.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);

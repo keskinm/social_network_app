@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.social_network_front"
+    package="com.example.social_network_app"
     android:versionCode="1"
     android:versionName="0.0.1">
    <application
-        android:label="social_network_front"
+        android:label="social_network_app"
         android:icon="@mipmap/ic_launcher"
        android:allowBackup="true"
        tools:targetApi="donut">

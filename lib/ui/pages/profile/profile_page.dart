@@ -1,6 +1,6 @@
-import 'package:social_network_front/ui/pages/profile/profile_logic.dart';
-import 'package:social_network_front/ui/pages/profile/profile_style.dart';
-import 'package:social_network_front/services/routing.dart';
+import 'package:social_network_app/ui/pages/profile/profile_logic.dart';
+import 'package:social_network_app/ui/pages/profile/profile_style.dart';
+import 'package:social_network_app/services/routing.dart';
 
 import 'dart:async';
 
