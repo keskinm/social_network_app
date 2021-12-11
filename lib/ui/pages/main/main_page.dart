@@ -4,6 +4,8 @@ import 'package:social_network_front/ui/widgets/flow_menu_component.dart';
 import 'package:social_network_front/ui/pages/profile/profile_page.dart';
 import 'package:social_network_front/ui/pages/search/search_page.dart';
 
+import '../../../try_images.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -38,7 +40,14 @@ class _MainPageState extends State<MainPage>
         'icon': Icons.new_releases,
         'action': () =>
             _updateMenu(icon: Icons.new_releases, page: ChatRoom(), newTitle: 'messagerie'),
+      },
+      {
+        'icon': Icons.add_a_photo,
+        'action': () =>
+            _updateMenu(icon: Icons.add_a_photo, page: LoadFirbaseStorageImage(), newTitle: 'load_image')
       }
+
+
     ];
   }
 
