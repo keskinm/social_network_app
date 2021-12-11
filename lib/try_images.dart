@@ -1,4 +1,6 @@
+// import 'dart:html' as html;
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fs;
 import 'package:image_picker/image_picker.dart';
@@ -37,10 +39,10 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
                 child: Column(
                   children: [
                     Container(
-                      child: Image.network(
+                      child: kIsWeb ? Image.network(
                         im,
                         fit: BoxFit.fill,
-                      ),
+                      ):Image.file(File(im), fit: BoxFit.fill,),
                       width: 200,
                       height: 200,
                     ),
@@ -59,40 +61,27 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
   }
 
   Future<void> newProfileImage() async {
-    File? image = await selectImageFromGallery();
+    XFile? image = await selectImageFromGallery();
 
     if (image==null){
       throw Exception('an exception occured');
     }
 
-    print("0");
-    await uploadFile(image);
-    print("1");
-    await uploadToFirebase(image);
-    print("2");
+    else{
+      await uploadToFirebase(image);
+    }
+
 
   }
 
-  Future<File?> selectImageFromGallery() async {
-    File? _image;
-
+  Future<XFile?> selectImageFromGallery() async {
     final picker = ImagePicker();
 
     setState(() {
       inProcess = true;
     });
 
-    final imageFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (imageFile != null) {
-      _image = File(imageFile.path);
-    }
-
-    setState(() {
-      inProcess = false;
-    });
-
-    return _image;
+    return picker.pickImage(source: ImageSource.gallery);
 
   }
 
@@ -105,19 +94,26 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
     return downloadURL;
   }
 
-  Future<String> uploadFile(File image) async {
+  Future<String> uploadFile(XFile image) async {
     String downloadURL;
     String postId = DateTime.now().millisecondsSinceEpoch.toString();
     fs.Reference ref = fs.FirebaseStorage.instance
         .ref()
         .child("images")
         .child("post_$postId.jpg");
-    await ref.putFile(image);
+
+    if (kIsWeb) {
+      await ref.putData(await image.readAsBytes());
+    } else {
+      await ref.putFile(File(image.path));
+      // await ref.putFile(html.File(image.path.codeUnits, image.path));
+    }
+
     downloadURL = await ref.getDownloadURL();
     return downloadURL;
   }
 
-  uploadToFirebase(File image) async {
+  uploadToFirebase(XFile image) async {
     String url = await uploadFile(image); // this will upload the file and store url in the variable 'url'
     // await users.doc(uid).update({  //use update to update the doc fields.
     //   'url':url
