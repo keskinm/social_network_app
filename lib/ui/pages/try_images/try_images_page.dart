@@ -16,12 +16,13 @@ class LoadFirbaseStorageImage extends StatefulWidget {
 class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
   bool inProcess = false;
   late Future<String> profileImage;
+  DatabaseMethods dataBaseMethods = DatabaseMethods();
 
 
   Future<String> getProfileImage() async {
     String bucket;
 
-    dynamic jsonResp = await getUserField(appState.currentUser.id, "[\"profile_image_id\"]");
+    dynamic jsonResp = await dataBaseMethods.getUserField(appState.currentUser.id, "[\"profile_image_id\"]");
     String? profileImageId = jsonResp[0]['profile_image_id'];
 
     if (profileImageId==null) {
@@ -34,7 +35,7 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
       bucket = 'profile_images/$currentUsername';
     }
 
-    return downloadFile(bucket, profileImageId);
+    return dataBaseMethods.downloadFile(bucket, profileImageId);
 
   }
 
@@ -86,6 +87,10 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
   }
   
   Future<void> changeProfileImage() async {
+
+  //  DISPLAY ALL IMAGES IN gs://profile_images/<currentUsername>/
+
+    // Use databaseMethods.updateUserFields(profileImageId : chosenImage)
     
   }
 
@@ -100,7 +105,7 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
       String postId = DateTime.now().millisecondsSinceEpoch.toString();
       String imageName = "post_$postId.jpg";
       String currentUsername = appState.currentUser.username;
-      await uploadFile('profile_images/$currentUsername', imageName, image);
+      await dataBaseMethods.uploadFile('profile_images/$currentUsername', imageName, image);
     }
   }
 

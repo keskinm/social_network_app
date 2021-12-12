@@ -93,23 +93,7 @@ class ProfileLogic{
   }
 
 
-  Future<int> updateField(String value, String field, String route) async {
 
-    String userId = appState.currentUser.id ;
-
-    String jsonData = '{"user_id": "$userId", "$field": "$value"}';
-
-    Response response =
-        await dioHttpPost(route: route, jsonData: jsonData, token: true);
-
-    if (response.statusCode == 200) {
-      return 0;
-    }
-    else {
-      throw Exception('Fail to updateField');
-    }
-
-  }
 
 
 }

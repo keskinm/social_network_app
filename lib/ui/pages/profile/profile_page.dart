@@ -1,3 +1,4 @@
+import 'package:social_network_app/services/database.dart';
 import 'package:social_network_app/ui/pages/profile/profile_logic.dart';
 import 'package:social_network_app/ui/pages/profile/profile_style.dart';
 import 'package:social_network_app/services/routing.dart';
@@ -20,6 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   ProfileLogic logic = ProfileLogic();
   ProfileStyle style = ProfileStyle();
+  DatabaseMethods dataBaseMethods = DatabaseMethods();
 
   late Future<UserSettings> userSettings;
 
@@ -52,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 TextField(
                   controller: _controller,
                   onSubmitted: (String value) {
-                    logic.updateField(value, field, route);
+                    dataBaseMethods.updateUserField(value, field, route);
                     delayAndPushReplacement();
                   },)]
               ,);
