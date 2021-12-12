@@ -99,7 +99,8 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
     else {
       String postId = DateTime.now().millisecondsSinceEpoch.toString();
       String imageName = "post_$postId.jpg";
-      await uploadFile(appState.currentUser.username, imageName, image);
+      String currentUsername = appState.currentUser.username;
+      await uploadFile('profile_images/$currentUsername', imageName, image);
     }
   }
 
