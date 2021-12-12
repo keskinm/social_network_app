@@ -8,14 +8,14 @@ import 'package:social_network_app/services/api/dio.dart';
 
 import 'dart:io';
 
-
 class DatabaseMethods {
-
   // ------------------------FIREBASE--------------------------------------
 
-
   Future<void> addUserInfo(userData) async {
-    FirebaseFirestore.instance.collection("users").add(userData).catchError((e) {
+    FirebaseFirestore.instance
+        .collection("users")
+        .add(userData)
+        .catchError((e) {
       print(e.toString());
     });
   }
@@ -47,7 +47,7 @@ class DatabaseMethods {
     });
   }
 
-  Future getChats(String chatRoomId) async{
+  Future getChats(String chatRoomId) async {
     return FirebaseFirestore.instance
         .collection("chatRoom")
         .doc(chatRoomId)
@@ -57,11 +57,12 @@ class DatabaseMethods {
   }
 
   Future<void> addMessage(String chatRoomId, chatMessageData) async {
-
-    FirebaseFirestore.instance.collection("chatRoom")
+    FirebaseFirestore.instance
+        .collection("chatRoom")
         .doc(chatRoomId)
         .collection("chats")
-        .add(chatMessageData).catchError((e){
+        .add(chatMessageData)
+        .catchError((e) {
       print(e.toString());
     });
   }
@@ -73,27 +74,31 @@ class DatabaseMethods {
         .snapshots();
   }
 
-
   Future<String> downloadFile(String bucket, String fileId) async {
-
-    fs.Reference ref;
-
-    ref = fs.FirebaseStorage.instance
-        .ref()
-        .child(bucket)
-        .child(fileId);
+    fs.Reference ref =
+        fs.FirebaseStorage.instance.ref().child(bucket).child(fileId);
 
     String downloadURL = await ref.getDownloadURL();
     return downloadURL;
   }
 
+  dynamic downloadFiles(String bucket) async {
+    fs.Reference ref =
+    fs.FirebaseStorage.instance.ref().child(bucket);
+
+    final urls = await ref.listAll();
+
+    print("URLS");
+    print(urls);
+
+    return urls;
+
+  }
 
   Future<String> uploadFile(String bucket, String fileName, XFile file) async {
     String downloadURL;
-    fs.Reference ref = fs.FirebaseStorage.instance
-        .ref()
-        .child(bucket)
-        .child(fileName);
+    fs.Reference ref =
+        fs.FirebaseStorage.instance.ref().child(bucket).child(fileName);
 
     if (kIsWeb) {
       await ref.putData(await file.readAsBytes());
@@ -109,55 +114,38 @@ class DatabaseMethods {
   // ------------------------SQL--------------------------------------
 
   Future<int> updateUserField(String value, String field, String route) async {
-
-    String userId = appState.currentUser.id ;
+    String userId = appState.currentUser.id;
 
     String jsonData = '{"user_id": "$userId", "$field": "$value"}';
 
     Response response =
-    await dioHttpPost(route: route, jsonData: jsonData, token: true);
+        await dioHttpPost(route: route, jsonData: jsonData, token: true);
 
     if (response.statusCode == 200) {
       return 0;
-    }
-    else {
+    } else {
       throw Exception('Fail to updateField');
     }
-
   }
-
-
 
   getUserField(String userid, String? fields) async {
     String jsonData;
 
-    if (fields==null) {
+    if (fields == null) {
       jsonData = '{"id": "$userid"}';
-    }
-    else {
+    } else {
       jsonData = '{"id": "$userid", "fields": $fields}';
     }
 
-    Response response =
-    await dioHttpPost(route: 'getUserFields', jsonData: jsonData, token: true);
+    Response response = await dioHttpPost(
+        route: 'getUserFields', jsonData: jsonData, token: true);
 
     if (response.statusCode == 200) {
       return response.data;
-    }
-    else {
+    } else {
       throw Exception('an error occured');
     }
   }
-
 }
 
 // -------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-

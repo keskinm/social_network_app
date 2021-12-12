@@ -6,7 +6,6 @@ import 'package:social_network_app/services/database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_network_app/services/app_state.dart';
 
-
 class LoadFirbaseStorageImage extends StatefulWidget {
   @override
   _LoadFirbaseStorageImageState createState() =>
@@ -18,26 +17,25 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
   late Future<String> profileImage;
   DatabaseMethods dataBaseMethods = DatabaseMethods();
 
-
   Future<String> getProfileImage() async {
     String bucket;
 
-    dynamic jsonResp = await dataBaseMethods.getUserField(appState.currentUser.id, "[\"profile_image_id\"]");
+    dynamic jsonResp = await dataBaseMethods.getUserField(
+        appState.currentUser.id, "[\"profile_image_id\"]");
     String? profileImageId = jsonResp[0]['profile_image_id'];
 
-    if (profileImageId==null) {
+    if (profileImageId == null) {
       bucket = 'profile_images';
       profileImageId = 'default_profile.png';
-    }
-
-    else {
+    } else {
       String currentUsername = appState.currentUser.username;
       bucket = 'profile_images/$currentUsername';
     }
 
     return dataBaseMethods.downloadFile(bucket, profileImageId);
-
   }
+
+
 
   @override
   void initState() {
@@ -45,12 +43,9 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
     profileImage = getProfileImage();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-
-
       FutureBuilder(
           future: profileImage,
           builder: (context, snapshot) {
@@ -61,20 +56,31 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
                 child: Column(
                   children: [
                     Container(
-                      child: kIsWeb ? Image.network(
-                        im,
-                        fit: BoxFit.fill,
-                      ) : Image.file(File(im), fit: BoxFit.fill,),
+                      child: kIsWeb
+                          ? Image.network(
+                              im,
+                              fit: BoxFit.fill,
+                            )
+                          : Image.file(
+                              File(im),
+                              fit: BoxFit.fill,
+                            ),
                       width: 200,
                       height: 200,
                     ),
-                    MaterialButton(
+                    ElevatedButton(
                       onPressed: () => addProfileImage(),
                       child: Text('Ajouter photo de profile'),
                     ),
-                    MaterialButton(
-                      onPressed: () => changeProfileImage(),
-                      child: Text('Changer photo de profile'),
+                    ElevatedButton(
+                      child: const Text('Changer photo de profile'),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DisplayProfileImages()),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -85,13 +91,11 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
           })
     ]);
   }
-  
-  Future<void> changeProfileImage() async {
 
-  //  DISPLAY ALL IMAGES IN gs://profile_images/<currentUsername>/
+  Future<void> changeProfileImage() async {
+    //  DISPLAY ALL IMAGES IN gs://profile_images/<currentUsername>/
 
     // Use databaseMethods.updateUserFields(profileImageId : chosenImage)
-    
   }
 
   Future<void> addProfileImage() async {
@@ -99,13 +103,12 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
 
     if (image == null) {
       throw Exception('an exception occured');
-    }
-
-    else {
+    } else {
       String postId = DateTime.now().millisecondsSinceEpoch.toString();
       String imageName = "post_$postId.jpg";
       String currentUsername = appState.currentUser.username;
-      await dataBaseMethods.uploadFile('profile_images/$currentUsername', imageName, image);
+      await dataBaseMethods.uploadFile(
+          'profile_images/$currentUsername', imageName, image);
     }
   }
 
@@ -116,10 +119,136 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
       inProcess = true;
     });
 
-    return picker.pickImage(source: ImageSource.gallery);
+    Future<XFile?> xFile = picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      inProcess = false;
+    });
+
+    return xFile;
   }
+}
+
+
+
+
+// @todo make it StateLess???
+class DisplayProfileImages extends StatefulWidget {
+  @override
+  _DisplayProfileImages createState() =>
+      _DisplayProfileImages();
 
 }
+
+class _DisplayProfileImages extends State<DisplayProfileImages>{
+  bool inProcess = false;
+  late dynamic profileImages;
+  DatabaseMethods dataBaseMethods = DatabaseMethods();
+
+
+    buildImageProfileWraps(dynamic profileImages) async {
+    List<Widget> r = [];
+
+    dynamic storageReferences = profileImages.items;
+    for (dynamic storageReference in storageReferences) {
+      print("print storageReference");
+      print(storageReference);
+
+      String link = await storageReference.getDownloadURL();
+
+      print("link");
+      print(link);
+
+      Widget w = Container(
+
+        child:
+
+        Wrap(
+          children: [
+
+            Image.network(link, fit: BoxFit.fill,),
+
+            MaterialButton(
+                onPressed: () => dataBaseMethods.updateUserField(storageReference, "profile_image_id", "updateUserField"),
+            )
+
+          ],
+
+
+        ),
+
+        width: 200,
+        height: 200,
+
+      );
+
+      r.add(w);
+
+    }
+
+    return r;
+  }
+
+
+
+  getProfileImages() async {
+    String currentUsername = appState.currentUser.username;
+    String bucket = 'profile_images/$currentUsername';
+    return dataBaseMethods.downloadFiles(bucket);
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    profileImages = getProfileImages();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Profile Images"),
+      ),
+      body: Column(children: [
+
+
+        FutureBuilder(
+          future: profileImages,
+          builder: (context, AsyncSnapshot snapshot) {
+
+            if (snapshot.hasData) {
+
+              dynamic profileImagesList = snapshot.data;
+
+              return Container(
+                  child: Column(children: buildImageProfileWraps(profileImagesList))
+              );
+
+            }
+
+            else {
+              return Text('Votre album photo est vide');
+            }
+
+          },
+        ),
+
+
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);},
+          child: Text('Go back!'),
+        ),
+
+
+      ],
+      ),
+    );
+  }
+}
+
 
 
 // Widget _buildImageBoxes(dynamic im) {
