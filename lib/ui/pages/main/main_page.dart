@@ -4,7 +4,7 @@ import 'package:social_network_app/ui/widgets/flow_menu_component.dart';
 import 'package:social_network_app/ui/pages/profile/profile_page.dart';
 import 'package:social_network_app/ui/pages/search/search_page.dart';
 
-import '../../../try_images.dart';
+import '../try_images/try_images_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
