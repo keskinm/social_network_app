@@ -68,9 +68,13 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
                       height: 200,
                     ),
                     MaterialButton(
-                      onPressed: () => newProfileImage(),
+                      onPressed: () => addProfileImage(),
+                      child: Text('Ajouter photo de profile'),
+                    ),
+                    MaterialButton(
+                      onPressed: () => changeProfileImage(),
                       child: Text('Changer photo de profile'),
-                    )
+                    ),
                   ],
                 ),
               );
@@ -80,8 +84,12 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
           })
     ]);
   }
+  
+  Future<void> changeProfileImage() async {
+    
+  }
 
-  Future<void> newProfileImage() async {
+  Future<void> addProfileImage() async {
     XFile? image = await selectImageFromGallery();
 
     if (image == null) {
@@ -89,7 +97,9 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
     }
 
     else {
-      await uploadToFirebase(image);
+      String postId = DateTime.now().millisecondsSinceEpoch.toString();
+      String imageName = "post_$postId.jpg";
+      await uploadFile(appState.currentUser.username, imageName, image);
     }
   }
 

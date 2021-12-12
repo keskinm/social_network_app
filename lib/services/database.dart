@@ -108,18 +108,17 @@ Future<String> downloadFile(String bucket, String fileId) async {
   return downloadURL;
 }
 
-Future<String> uploadFile(XFile image) async {
+Future<String> uploadFile(String bucket, String fileName, XFile file) async {
   String downloadURL;
-  String postId = DateTime.now().millisecondsSinceEpoch.toString();
   fs.Reference ref = fs.FirebaseStorage.instance
       .ref()
-      .child("images")
-      .child("post_$postId.jpg");
+      .child(bucket)
+      .child(fileName);
 
   if (kIsWeb) {
-    await ref.putData(await image.readAsBytes());
+    await ref.putData(await file.readAsBytes());
   } else {
-    await ref.putFile(File(image.path));
+    await ref.putFile(File(file.path));
     // await ref.putFile(html.File(image.path.codeUnits, image.path));
   }
 
@@ -127,9 +126,3 @@ Future<String> uploadFile(XFile image) async {
   return downloadURL;
 }
 
-uploadToFirebase(XFile image) async {
-  String url = await uploadFile(image); // this will upload the file and store url in the variable 'url'
-  // await users.doc(uid).update({  //use update to update the doc fields.
-  //   'url':url
-  // });
-}
