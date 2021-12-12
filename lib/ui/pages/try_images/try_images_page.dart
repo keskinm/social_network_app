@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:social_network_app/services/database.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:social_network_app/services/app_state.dart';
 
 
 class LoadFirbaseStorageImage extends StatefulWidget {
@@ -16,10 +17,31 @@ class _LoadFirbaseStorageImageState extends State<LoadFirbaseStorageImage> {
   bool inProcess = false;
   late Future<String> profileImage;
 
+
+  Future<String> getProfileImage() async {
+    String bucket;
+
+    dynamic jsonResp = await getUserField(appState.currentUser.id, "[\"profile_image_id\"]");
+    String? profileImageId = jsonResp[0]['profile_image_id'];
+
+    if (profileImageId==null) {
+      bucket = 'profile_images';
+      profileImageId = 'default_profile.png';
+    }
+
+    else {
+      String currentUsername = appState.currentUser.username;
+      bucket = 'profile_images/$currentUsername';
+    }
+
+    return downloadFile(bucket, profileImageId);
+
+  }
+
   @override
   void initState() {
     super.initState();
-    profileImage = downloadFile();
+    profileImage = getProfileImage();
   }
 
 

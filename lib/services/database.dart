@@ -74,49 +74,36 @@ class DatabaseMethods {
 // -------------------------------------------------------------------------
 
 
-getUserField(String userid) async {
-  // @todo why doesn't work with fields?
-  // String jsonData = '{"id": "$userid", "fields": ["profile_image_id"]}';
-  String jsonData = '{"id": "$userid"}';
+getUserField(String userid, String? fields) async {
+  String jsonData;
+
+  if (fields==null) {
+    jsonData = '{"id": "$userid"}';
+  }
+  else {
+    jsonData = '{"id": "$userid", "fields": $fields}';
+  }
 
   Response response =
   await dioHttpPost(route: 'getUserFields', jsonData: jsonData, token: true);
 
   if (response.statusCode == 200) {
-    dynamic jsonResp = response.data[0];
-    String? profileImageId = jsonResp['profile_image_id'];
-    return profileImageId;
+    return response.data;
   }
   else {
     throw Exception('an error occured');
   }
 }
 
-Future<String> downloadFile() async {
-  String bucket = 'profile_images';
+Future<String> downloadFile(String bucket, String fileId) async {
 
   fs.Reference ref;
 
-  String? fileId = await getUserField(appState.currentUser.id);
+  ref = fs.FirebaseStorage.instance
+      .ref()
+      .child(bucket)
+      .child(fileId);
 
-  if (fileId==null){
-
-    fileId = 'default_profile.png';
-
-    ref = fs.FirebaseStorage.instance
-        .ref()
-        .child(bucket)
-        .child(fileId);
-  }
-
-  else {
-    ref = fs.FirebaseStorage.instance
-        .ref()
-        .child(bucket)
-        .child(appState.currentUser.username)
-        .child(fileId);
-
-  }
   String downloadURL = await ref.getDownloadURL();
   return downloadURL;
 }
