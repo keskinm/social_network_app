@@ -87,12 +87,14 @@ class DatabaseMethods {
     fs.FirebaseStorage.instance.ref().child(bucket);
 
     final urls = await ref.listAll();
+    dynamic refs = urls.items;
+    dynamic res = [];
+    for(dynamic ref in refs){
+      String link = await ref.getDownloadURL();
+      res.add(link);
+    }
 
-    print("URLS");
-    print(urls);
-
-    return urls;
-
+    return res;
   }
 
   Future<String> uploadFile(String bucket, String fileName, XFile file) async {

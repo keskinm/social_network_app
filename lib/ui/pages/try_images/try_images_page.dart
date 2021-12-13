@@ -146,18 +146,10 @@ class _DisplayProfileImages extends State<DisplayProfileImages>{
   DatabaseMethods dataBaseMethods = DatabaseMethods();
 
 
-    buildImageProfileWraps(dynamic profileImages) async {
+    buildImageProfileWraps(dynamic storageReferences) async {
     List<Widget> r = [];
 
-    dynamic storageReferences = profileImages.items;
     for (dynamic storageReference in storageReferences) {
-      print("print storageReference");
-      print(storageReference);
-
-      String link = await storageReference.getDownloadURL();
-
-      print("link");
-      print(link);
 
       Widget w = Container(
 
@@ -166,7 +158,7 @@ class _DisplayProfileImages extends State<DisplayProfileImages>{
         Wrap(
           children: [
 
-            Image.network(link, fit: BoxFit.fill,),
+            Image.network(storageReference, fit: BoxFit.fill,),
 
             MaterialButton(
                 onPressed: () => dataBaseMethods.updateTableField(storageReference, "profile_image_id", "updateUserField"),
