@@ -169,7 +169,7 @@ class _DisplayProfileImages extends State<DisplayProfileImages>{
             Image.network(link, fit: BoxFit.fill,),
 
             MaterialButton(
-                onPressed: () => dataBaseMethods.updateUserField(storageReference, "profile_image_id", "updateUserField"),
+                onPressed: () => dataBaseMethods.updateTableField(storageReference, "profile_image_id", "updateUserField"),
             )
 
           ],

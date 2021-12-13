@@ -113,7 +113,7 @@ class DatabaseMethods {
 
   // ------------------------SQL--------------------------------------
 
-  Future<int> updateUserField(String value, String field, String route) async {
+  Future<int> updateTableField(String value, String field, String route) async {
     String userId = appState.currentUser.id;
 
     String jsonData = '{"user_id": "$userId", "$field": "$value"}';

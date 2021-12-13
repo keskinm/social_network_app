@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 TextField(
                   controller: _controller,
                   onSubmitted: (String value) {
-                    dataBaseMethods.updateUserField(value, field, route);
+                    dataBaseMethods.updateTableField(value, field, route);
                     delayAndPushReplacement();
                   },)]
               ,);
