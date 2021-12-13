@@ -146,31 +146,28 @@ class _DisplayProfileImages extends State<DisplayProfileImages>{
   DatabaseMethods dataBaseMethods = DatabaseMethods();
 
 
-    buildImageProfileWraps(dynamic storageReferences) async {
+    buildImageProfileWraps(dynamic storageReferences) {
     List<Widget> r = [];
 
     for (dynamic storageReference in storageReferences) {
+      String storageReferenceBasename = storageReference.split('%2F').last.split('?')[0];
+      Widget w = Column(
 
-      Widget w = Container(
+        children: [
 
-        child:
+          Container(
+            child: Image.network(storageReference, fit: BoxFit.fill,),
+            width: 200,
+            height: 200,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+          ),
 
-        Wrap(
-          children: [
+          ElevatedButton(
+              onPressed: () => dataBaseMethods.updateTableField(storageReferenceBasename, "profile_image_id", "updateUserField"),
+              child: Text('X')
+          )
 
-            Image.network(storageReference, fit: BoxFit.fill,),
-
-            MaterialButton(
-                onPressed: () => dataBaseMethods.updateTableField(storageReference, "profile_image_id", "updateUserField"),
-            )
-
-          ],
-
-
-        ),
-
-        width: 200,
-        height: 200,
+        ],
 
       );
 
@@ -214,8 +211,7 @@ class _DisplayProfileImages extends State<DisplayProfileImages>{
 
               dynamic profileImagesList = snapshot.data;
 
-              return Container(
-                  child: Column(children: buildImageProfileWraps(profileImagesList))
+              return Column(children: buildImageProfileWraps(profileImagesList)
               );
 
             }
